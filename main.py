@@ -40,11 +40,11 @@ while True: #program vyžádá od uživatele výběr čísla textu, pokud je v r
     if cislo in [0,1,2]:
         print("-"*40)
         print("There are",len(processed_texts[cislo]), "words in the selected text.")
-        print("There are",sum(1 for word in processed_texts[cislo] if word[cislo].isupper()),
+        print("There are",sum(1 for word in processed_texts[cislo] if word.istitle()),
           "titlecase words.")
         print("There are",sum(1 for word in processed_texts[cislo] if word.isupper() 
                           and not any(char.isdigit() for char in word)),"uppercase words.")
-        print("There are",sum(1 for word in processed_texts[cislo] if word[cislo].islower()),"lowercase words.")
+        print("There are",sum(1 for word in processed_texts[cislo] if word.islower()),"lowercase words.")
         print("There are", sum(1 for word in processed_texts[cislo] if word.isnumeric()
                            and not any(char.isalpha() for char in word)),"numeric strings.")
         soucet=0
