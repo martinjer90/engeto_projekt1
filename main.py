@@ -36,33 +36,54 @@ while True: #uživatel zadá jméno a heslo
     sys.exit()
 
 while True: #program vyžádá od uživatele výběr čísla textu, pokud je v rozmezí 1,2,3, program analyzuje konkrétní text
+  try:
     cislo=int(input("Enter a number btw. 1 and 3 to select: "))-1
-    if cislo in [0,1,2]:
-        print("-"*40)
-        print("There are",len(processed_texts[cislo]), "words in the selected text.")
-        print("There are",sum(1 for word in processed_texts[cislo] if word.istitle()),
-          "titlecase words.")
-        print("There are",sum(1 for word in processed_texts[cislo] if word.isupper() 
-                          and not any(char.isdigit() for char in word)),"uppercase words.")
-        print("There are",sum(1 for word in processed_texts[cislo] if word.islower()),"lowercase words.")
-        print("There are", sum(1 for word in processed_texts[cislo] if word.isnumeric()
-                           and not any(char.isalpha() for char in word)),"numeric strings.")
-        soucet=0
-        for word in processed_texts[cislo]:
-            if word.isdigit():
-                soucet+=int(word)
-        print("The sum of all the numbers:", soucet)
-        print("-"*40)
-        print(f'{"LEN":<2}|{" OCCURENCES":<12}|{"NR"}')
-        print("-"*40)
-    
-        delky_slov = [len(slovo.strip('.,')) for slovo in processed_texts[cislo]]
-        cetnosti = Counter(delky_slov)
-        for delka, cetnost in sorted(cetnosti.items()):
-            print(f'{delka:<2}|{"*" * cetnost:<12} |{cetnost}')
+    if 0 <= cislo < len(processed_texts):
+      selected_text = processed_texts[cislo]
+      print("-"*40)
+      pocet_slov = len(selected_text)
+      titlecase_count = 0
+      uppercase_count = 0
+      lowercase_count = 0
+      numeric_count = 0
+      soucet = 0
+      
+      for word in selected_text:
+                if word[0].isalpha() and word[0].isupper():                
+                    titlecase_count += 1
+                if word.isupper() and not any(char.isdigit() for char in word):
+                    uppercase_count += 1
+                if word.islower():
+                    lowercase_count += 1
+                if word.isnumeric() and not any(char.isalpha() for char in word):
+                    numeric_count += 1
+                if word.isdigit():
+                    soucet += int(word)
+      
+      
+      print("There are", pocet_slov, "words in the selected text.")
+      print("There are", titlecase_count, "titlecase words.")
+      print("There are", uppercase_count, "uppercase words.")
+      print("There are", lowercase_count, "lowercase words.")
+      print("There are", numeric_count, "numeric strings.")
+      print("The sum of all the numbers:", soucet)
+      print("-" * 40)
+      print(f'{"LEN":<3}|{" OCCURRENCES":<13}|{"NR"}')
+      print("-" * 40)
+      
+      delky_slov = [len(slovo.strip('.,')) for slovo in processed_texts[cislo]]
+      cetnosti = Counter(delky_slov)
+      for delka, cetnost in sorted(cetnosti.items()):
+        print(f'{delka:<3}|{"*" * cetnost:<13} |{cetnost}',end="")
         print()
-        break
+        continue
+      break
+      
+      
 
     else: #pokud uživatel zadá jiné číslo, program se ukončí
         print("Zadal jsi špatné číslo. Ukončuji program.")
         sys.exit()
+  except ValueError:
+    print("Zadal jsi neplatný vstup. Ukončuji program.")
+    sys.exit()

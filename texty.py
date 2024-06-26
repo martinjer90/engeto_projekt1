@@ -33,3 +33,4 @@ for text in TEXTS: #očistím text o mezery a znaky a rozdělím slova
     words = stripped_text.split()
     processed_texts.append(words)
     
+
