@@ -35,7 +35,7 @@ while True: #uživatel zadá jméno a heslo
           "unregistered user, terminating the program..\n")
     sys.exit()
 
-while True: #program vyžádá od uživatele výběr čísla textu, pokud je v rozmezí 1,2,3, program analyzuje konkrétní text
+while True: #program vyžádá od uživatele výběr čísla textu, pokud je v rozmezí, program analyzuje konkrétní text
   try:
     cislo=int(input("Enter a number btw. 1 and 3 to select: "))-1
     if 0 <= cislo < len(processed_texts):
@@ -84,6 +84,6 @@ while True: #program vyžádá od uživatele výběr čísla textu, pokud je v r
     else: #pokud uživatel zadá jiné číslo, program se ukončí
         print("Zadal jsi špatné číslo. Ukončuji program.")
         sys.exit()
-  except ValueError:
+  except ValueError:#pokud zadá uživatel něco jiného, než číslo, taky se ukončí
     print("Zadal jsi neplatný vstup. Ukončuji program.")
     sys.exit()
